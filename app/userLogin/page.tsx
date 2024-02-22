@@ -2,41 +2,62 @@
 import { useState } from "react";
 import Footer from "../Components/Footer/Footer";
 import { useRouter } from "next/navigation";
+import Navbar from "../Components/Navbar/Navbar";
+import axios from "axios";
 
 export default function CustomerLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const loginPayload = {
       email: email,
       password: password,
     };
-
-    console.log(loginPayload);
+    try {
+      const response = await fetch("http://192.168.29.233:8055/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginPayload),
+      });
+      // Check if the response was successful (status in the range 200-299)
+      if (response.ok) {
+        // Response is successful, process it
+        const responseData = await response.json();
+        console.log("Response Data:", responseData);
+        console.log(responseData.data, "responseData.data.data");
+        localStorage.setItem("access_token", responseData.data.access_token);
+        localStorage.setItem("refresh_token", responseData.data.refresh_token);
+        router.push("/Dashboard", { scroll: false });
+      } else {
+        // Response is not successful, throw an error
+        setError("Invalid Credentials");
+        throw new Error("Network response was not ok");
+      }
+    } catch (error: any) {
+      // An error occurred during the fetch operation
+      console.error("Fetch Error:", error.message);
+    }
   };
 
   return (
     <main>
       <div className="min-h-[92vh]">
-        <div className="bg-[#FFE5D8] min-h-[20vh] flex justify-center items-center">
-          <img
-            className="ml-4 pl-0 w-52 cursor-pointer"
-            // src={Heading}
-            // onClick={() => naviagte("/")}
-            loading="eager"
-          ></img>
-        </div>
+        <Navbar />
         <div className="flex justify-center items-center pt-2 lg:mt-[50px]">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mt-32">
             <form className="md:px-10 lg:px-20 w-[300px] sm:w-[550px] shadow-2xl border bg-[#FFFFFF] rounded-[30px] p-6">
               <div className="text-[#14px] text-[#B5B5BE] mt-5 text-center">
                 USER LOGIN FIRST
               </div>
-              <div className="font-semibold text-[24px] text-[#8C7E79] mt-5 mb-11 text-center">
+              <div className="font-semibold text-[24px] text-[#8C7E79] mt-5 mb-5 text-center">
                 Get Started
               </div>
+              <p className="text-center pb-5 text-red-500">{error}</p>
               <div className="mb-10">
                 <label className="block text-[#8C7E79] text-[16px] font-semibold focus:outline-none leading-tight">
                   Email Address
@@ -87,7 +108,7 @@ export default function CustomerLogin() {
               <div className="flex items-center justify-center">
                 <button
                   type="button"
-                  className="bg-[#D8B37D] text-lg text-white font-bold border rounded-lg p-2 px-6 w-auto leading-tight focus:outline-none focus:shadow-outline"
+                  className="bg-gray-800 text-lg text-white font-bold border rounded-lg p-2 px-6 w-auto leading-tight focus:outline-none focus:shadow-outline"
                   onClick={handleSubmit}
                 >
                   LOGIN
@@ -103,7 +124,7 @@ export default function CustomerLogin() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }

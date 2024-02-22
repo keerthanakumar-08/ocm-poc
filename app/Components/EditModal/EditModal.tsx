@@ -1,8 +1,8 @@
 "use client";
 import { Button, Modal } from "antd";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import axios from "axios";
 
 export default function EditModal({ isModalOpen, handleOk, editValues }: any) {
   const [username, setUserName] = useState(editValues[0].Username);
@@ -16,33 +16,34 @@ export default function EditModal({ isModalOpen, handleOk, editValues }: any) {
   console.log(editValues, "editValues");
 
   const handleUpdate = async () => {
+    console.log("handleUpdate");
     const loginPayload = {
       Username: username,
       email: email,
     };
 
-    // axios
-    //   .patch(
-    //     `http://192.168.29.233:8055/items/User_details/${editValues[0].id}`,
-    //     loginPayload
-    //   )
-    //   .then((res: any) => {
-    //     console.log(res, "res");
-    //   })
-    //   .catch((err) => console.log(err));
+    try {
+      const response = axios.patch(
+        `http://192.168.29.233:8055/items/User_details/${editValues[0].id}`,
+        loginPayload,
+      );
+      // Handle response
+      console.log(response, "response");
+    } catch (error) {
+      // Handle error
+    }
 
-    const response = await fetch(
-      `http://192.168.29.233:8055/items/User_details/${editValues[0].id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginPayload),
-      }
-    );
-    console.log(response, "response");
+    // const response = await fetch(
+    //   `http://192.168.29.233:8055/items/User_details/${editValues[0].id}`,
+    //   {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(loginPayload),
+    //   }
+    // );
+    // console.log(response, "response");
   };
 
   return (
