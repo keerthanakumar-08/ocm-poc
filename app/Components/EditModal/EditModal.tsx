@@ -10,7 +10,7 @@ export default function EditModal({ isModalOpen, handleOk, editValues }: any) {
 
   const router: any = useRouter();
   const handleCancel = () => {
-    router.push("/");
+    router.push("/Dashboard");
   };
 
   console.log(editValues, "editValues");

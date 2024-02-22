@@ -84,7 +84,7 @@ export default function Dashboard({ searchParams }: any) {
                     </td>
                     <td className="px-4 py-6">
                       <div className="flex justify-center">
-                        <Link href={`/?show=true/` + `?id=${item.id}`}>
+                        <Link href={`Dashboard/?show=true/` + `?id=${item.id}`}>
                           <MdEdit className="text-2xl" />
                         </Link>
 
