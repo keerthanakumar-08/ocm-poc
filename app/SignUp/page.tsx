@@ -9,13 +9,14 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+  console.log(process.env.DIRECT_US_URL, "process.env.DIRECT_US_URL");
   const handleSubmit = () => {
     const loginPayload = {
       Username: username,
       email: email,
       password: password,
     };
-    const response = fetch(`${process.env.DIRECT_US_URL}items/User_details`, {
+    const response = fetch(`http://192.168.29.233:8055/items/User_details`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

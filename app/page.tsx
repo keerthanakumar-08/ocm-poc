@@ -1,67 +1,36 @@
-import Image from "next/image";
-import Footer from "./Components/Footer/Footer";
+import Link from "next/link";
 
-async function getData() {
-  const res = await fetch(`${process.env.DIRECT_US_URL}items/User_details`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-}
-
-export default async function Home() {
-  const data = await getData();
-  console.log(data, "data");
+export default function Home() {
   return (
-    <main className="mt-20">
-      <div className="container mx-auto">
-        <h2 className="text-2xl font-bold mb-4">User Data</h2>
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full border-collapse rounded">
-            <thead className="bg-indigo-400">
-              <tr>
-                <th className="px-4 py-4 text-white rounded-tl-xl">sNo</th>
-                <th className="px-4 py-4 text-white">Username</th>
-                <th className="px-4 py-4 text-white">Email</th>
-                <th className="px-4 py-6 text-white rounded-tr-xl">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.data.length > 0 &&
-                data.data.map((item: any, index: any) => (
-                  <tr
-                    key={index}
-                    className="border border-gray-300 text-center"
-                  >
-                    <td className="px-4 py-6 border border-gray-300">
-                      {item.id}
-                    </td>
-                    <td className="px-4 py-6 border border-gray-300">
-                      {item.Username}
-                    </td>
-                    <td className="px-4 py-6 border border-gray-300">
-                      {item.email}
-                    </td>
-                    <td className="px-4 py-6 border border-gray-300 text-center">
-                      {item.status ? (
-                        <div className="inline-block border py-2 rounded px-6 bg-green-400 text-white">
-                          <p>{item.status.toString()}</p>
-                        </div>
-                      ) : (
-                        <div className="inline-block border py-2 rounded px-6 bg-red-400 text-white">
-                          <p>{item.status.toString()}</p>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <header className="bg-gray-800 text-white py-4">
+        <div className="container mx-auto">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-      </div>
-    </main>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 container mx-auto">
+        <div className="my-8">
+          <p>Welcome to the dashboard!</p>
+          <Link
+            href="/Dashboard"
+            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4 rounded "
+          >
+            {/* <a className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4 rounded"> */}
+            Go to Dashboard
+            {/* </a> */}
+          </Link>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-4">
+        <div className="container mx-auto text-center">
+          <p>&copy; 2024 Dashboard Inc. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
 }
