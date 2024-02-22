@@ -46,8 +46,13 @@ export default function Dashboard({ searchParams }: any) {
     <main className="">
       <Navbar />
       <div className="container mx-auto mt-20">
-        <h2 className="text-2xl font-bold mb-4">User Data</h2>
-        <div className="overflow-x-auto h-[80vh]">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold mb-4">User Data</h2>
+          <button className="bg-indigo-400 text-white px-6 rounded py-3">
+            Add
+          </button>
+        </div>
+        <div className="overflow-x-auto h-[80vh] mt-2">
           <table className="w-full border-collapse rounded">
             <thead className="bg-indigo-400 sticky top-0">
               <tr>
@@ -74,11 +79,11 @@ export default function Dashboard({ searchParams }: any) {
                     <td className="px-4 py-6 text-center">
                       {item.status ? (
                         <div className="inline-block border py-2 rounded-xl px-6 bg-green-300 text-white">
-                          <p>{item.status.toString()}</p>
+                          <p>Active</p>
                         </div>
                       ) : (
                         <div className="inline-block border py-2 rounded-xl px-6 bg-red-400 text-white">
-                          <p>{item.status.toString()}</p>
+                          <p>Inactive</p>
                         </div>
                       )}
                     </td>
