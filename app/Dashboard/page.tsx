@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import getData from "../actions/getUserData";
 import Navbar from "../Components/Navbar/Navbar";
 import EditModal from "../Components/EditModal/EditModal";
+import { FaPlus } from "react-icons/fa6";
+import AddModal from "../Components/AddModal/AddModal";
 
 export default function Dashboard({ searchParams }: any) {
   const [data, setData] = useState<any>([]);
+  const [isModal, setIsModal] = useState(false);
   // const data = await getData();
   const show: any = searchParams?.show;
   const idIndex = show && show?.indexOf("id=");
@@ -42,14 +45,24 @@ export default function Dashboard({ searchParams }: any) {
     console.log(res, "res");
   };
 
+  const handleModalOpen = () => {
+    setIsModal(!isModal);
+  };
+
   return (
     <main className="">
       <Navbar />
       <div className="container mx-auto mt-20">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold mb-4">User Data</h2>
-          <button className="bg-indigo-400 text-white px-6 rounded py-3">
-            Add
+          <button
+            className="bg-indigo-400 text-white px-6 rounded py-3"
+            onClick={handleModalOpen}
+          >
+            <span className="flex justify-center items-center">
+              <FaPlus />
+              <span className="mx-2">Add</span>
+            </span>
           </button>
         </div>
         <div className="overflow-x-auto h-[80vh] mt-2">
@@ -59,7 +72,7 @@ export default function Dashboard({ searchParams }: any) {
                 <th className="px-4 py-4 text-white rounded-tl-xl">sNo</th>
                 <th className="px-4 py-4 text-white">Username</th>
                 <th className="px-4 py-4 text-white">Email</th>
-                <th className="px-4 py-6 text-white">Status</th>
+                <th className="pxN-4 py-6 text-white">Status</th>
                 <th className="px-4 py-6 text-white rounded-tr-xl">Action</th>
               </tr>
             </thead>
@@ -108,6 +121,13 @@ export default function Dashboard({ searchParams }: any) {
             </tbody>
           </table>
           {show && <EditModal isModalOpen={show} editValues={editValues} />}
+          {isModal && (
+            <AddModal
+              isModal={isModal}
+              handleModalOpen={handleModalOpen}
+              getUser={getUser}
+            />
+          )}
         </div>
       </div>
     </main>
