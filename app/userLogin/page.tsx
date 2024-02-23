@@ -57,7 +57,7 @@ export default function CustomerLogin() {
       <div className="">
         <Navbar />
         <div className="flex justify-center items-center pt-2">
-          <div className="flex justify-center items-center mt-32">
+          <div className="flex justify-center items-center mt-24">
             <form className="md:px-10 lg:px-20 w-[300px] sm:w-[550px] shadow-2xl border bg-[#FFFFFF] rounded-[30px] p-6">
               <div className="text-[#14px] text-[#B5B5BE] mt-5 text-center">
                 USER LOGIN FIRST
