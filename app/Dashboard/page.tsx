@@ -53,7 +53,7 @@ export default function Dashboard({ searchParams }: any) {
     <main className="">
       <Navbar />
       <div className="container mx-auto mt-20">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-10">
           <h2 className="text-2xl font-bold mb-4">User Data</h2>
           <button
             className="bg-indigo-400 text-white px-6 rounded py-3"
@@ -65,7 +65,7 @@ export default function Dashboard({ searchParams }: any) {
             </span>
           </button>
         </div>
-        <div className="overflow-x-auto h-[80vh] mt-2">
+        <div className="overflow-x-auto h-[70vh] mt-2">
           <table className="w-full border-collapse rounded">
             <thead className="bg-indigo-400 sticky top-0">
               <tr>

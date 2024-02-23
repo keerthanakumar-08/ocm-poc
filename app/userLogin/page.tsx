@@ -38,7 +38,7 @@ export default function CustomerLogin() {
         console.log(responseData.data, "responseData.data.data");
         localStorage.setItem("access_token", responseData.data.access_token);
         localStorage.setItem("refresh_token", responseData.data.refresh_token);
-        router.push("/Dashboard", { scroll: false });
+        router.push("/Dashboard");
         setLoader(false);
       } else {
         // Response is not successful, throw an error
@@ -53,10 +53,10 @@ export default function CustomerLogin() {
   };
 
   return (
-    <main>
-      <div className="min-h-[92vh]">
+    <main className="h-screen">
+      <div className="">
         <Navbar />
-        <div className="flex justify-center items-center pt-2 lg:mt-[50px]">
+        <div className="flex justify-center items-center pt-2">
           <div className="flex justify-center items-center mt-32">
             <form className="md:px-10 lg:px-20 w-[300px] sm:w-[550px] shadow-2xl border bg-[#FFFFFF] rounded-[30px] p-6">
               <div className="text-[#14px] text-[#B5B5BE] mt-5 text-center">
